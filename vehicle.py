@@ -40,41 +40,91 @@ class formula_one(engineered_vehicle):
         self._rpms = new_rpms
 
     
-    def accelerate(self,speed):
+    
+
+    def accelerate(self) -> int:
         """ Argument: Initial speed
             Output: Speed and Revolutions Per Minute
         """
+
+        
         rpm = 0
         while self.speed<= 290:
             try:
                 os.system('cls')
+
+                if self.speed == 110:
+                    print("\nturn left? press ""A"" ")
+                    print("\nturn right? press ""D"" ")
+                    print("\nto continue accelerating just press ENTER")
+
+                    response= input("\nChoose: ").upper()
+                    if response == 'A':
+                        self.steer_left(self.speed)
+                        input("press enter to continue excelerating")
+                    if response == 'D':
+                        self.steer_right(self.speed)
+                        input("press enter to continue excelerating")
+
+                    if response == '':
+                        pass
+                    
+                self.__status = "Moving"
                 self.speed += 10
                 rpm += 100
                 self._set_rpms(rpm)
                 
 
-                print(f"speed: {self.speed}\n")
-                print(f"RPMS: {self._get_rpms()}\n")
-                time.sleep(0.1)
+                print(f"self.speed: {self.speed}\n")
+                print(f"RPMs: {self._get_rpms()}\n")
+                print(f"Status: {self.__status}\n")
+
+                time.sleep(0.05)
             except ValueError:
-                print("Over the speed limit")
+                print("Over the self.speed limit")
+        return rpm
+            
+
+
+    def decelerate(self,rpm):
+        """ Argument: Initial self.speed
+            Output: self.speed and Revolutions Per Minute
+        """        
         
 
-    def decelerate(self,speed,rpm):
-        """ Argument: Initial speed
-            Output: Speed and Revolutions Per Minute
-        """        
-        while self.speed>=0:
+        while self.speed>0:
             try:
                 os.system('cls')
+
+                if self.speed == 110:
+                    print("\nturn left? press ""A"" ")
+                    print("\nturn right? press ""D"" ")
+                    print("\nto continue accelerating just press ENTER")
+
+                    response= input("\nChoose: ").upper()
+                    if response == 'A':
+                        self.steer_left(self.speed)
+                        input("press enter to continue decelerating")
+                    if response == 'D':
+                        self.steer_right(self.speed)
+                        input("press enter to continue decelerating")
+
+                    if response == '':
+                        pass
+                
                 self.speed -= 10
                 rpm -= 100
                 self._set_rpms(rpm)
                 
 
-                print(f"speed: {self.speed}\n")
+                print(f"self.speed: {self.speed}\n")
                 print(f"RPMS: {self._get_rpms()}\n")
-                time.sleep(0.1)
+
+                if self.speed == 0: 
+                    self.__status = "Stopped"
+                    print(f"Status: {self.__status}")
+
+                time.sleep(0.05)
             except ValueError:
                 print("Car in reverse")
 
@@ -83,8 +133,8 @@ class formula_one(engineered_vehicle):
             Output: message of confirmation of steering
         """
         if self.speed <= 120:
-            print(f"steering{_degrees_right} degrees to the right")
-            
+            print(f"steering {_degrees_right} degrees to the RIGHT")
+
         else:return "too fast. slow down."
 
     def steer_left(self,_degrees_left):
@@ -93,7 +143,7 @@ class formula_one(engineered_vehicle):
             Output: message of confirmation of steering
         """
         if self.speed <= 120:
-            print(f"steering{_degrees_left}degrees")
+            print(f"steering {_degrees_left} degrees ro the LEFT")
         else:return "too fast. slow down."
 
     
@@ -108,5 +158,9 @@ class sapce_x_rocket_ship:
 class main:
     car = formula_one()
     speed = 1
-    car.accelerate(speed)
-    
+    car.accelerate()
+
+    input("press ENTER to descelerate")
+    car.decelerate(3000)
+
+
