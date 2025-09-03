@@ -1,6 +1,9 @@
-# testSpacecraft.py
-# DIEGO LEMUS SEPULVEDA
-# NESTOR EDUARDO PEREZ AVALOS
+# test_spacecraft.py
+# Script de prueba interactivo.
+# Demuestra el POLIMORFISMO al invocar métodos definidos en la superclase
+# (accelerate/decelerate) pero ejecutados por la implementación concreta de Spacecraft.
+# También muestra la HERENCIA (Spacecraft hereda de EngineeredVehicle) y, al
+# interior de Spacecraft, el ENCAPSULAMIENTO con métodos/atributos "protegidos".
 
 from spacecraft import Spacecraft
 
@@ -46,7 +49,9 @@ if __name__ == "__main__":
     if has_crew:
         crew_size = ask_int("Tamaño de la tripulación: ", min_value=0)
 
-    # Crear instancia
+    # Instanciamos la subclase Spacecraft:
+    # - HERENCIA: Spacecraft extiende EngineeredVehicle.
+    # - POLIMORFISMO: luego llamaremos accelerate/decelerate (misma interfaz).
     ship = Spacecraft(
         country=country,
         length_m=length_m,
@@ -59,10 +64,13 @@ if __name__ == "__main__":
     print("\nEstado inicial:")
     print(ship.get_status())
 
-    # Flujo simple de demostración
+    # Lógica específica de Spacecraft (no está en la base)
     print("\nDespegando…")
     ship.takeoff()
 
+    # ===== POLIMORFISMO en acción =====
+    # Estas llamadas usan la interfaz común definida en EngineeredVehicle,
+    # pero ejecutan la implementación concreta de Spacecraft.
     print("\nAcelerando…")
     ship.accelerate()
 
